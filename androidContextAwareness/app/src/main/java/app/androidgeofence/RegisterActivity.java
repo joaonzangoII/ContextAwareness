@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //                if (!serverAdress.isEmpty()) {
                 //                    // login user
                 //                    session.setServerUrl(serverAdress);
-                    registerUser(firstname, middlename, lastname, idNumber, email, password, passwordConfirm);
+                registerUser(firstname, middlename, lastname, idNumber, email, password, passwordConfirm);
                 /*} else {
                     // Prompt user to enter credentials
                     Toast.makeText(RegisterActivity.this,
@@ -166,28 +166,56 @@ public class RegisterActivity extends AppCompatActivity {
                         if (messages.has("firstname")) {
                             final String firstname = messages.getJSONArray("firstname").get(0).toString();
                             stringBuilder.append("\n").append(firstname);
+                            inputFirstName.setError(firstname);
+                            inputFirstName.setError(firstname);
+                        } else {
+                            inputFirstName.setError(null);
+                            inputFirstName.setError(null);
                         }
 
                         if (messages.has("lastname")) {
                             final String lastname = messages.getJSONArray("lastname").get(0).toString();
                             stringBuilder.append("\n").append(lastname);
+                            inputLastName.setError(lastname);
+                            inputLastName.setError(lastname);
+                        } else {
+                            inputLastName.setError(null);
+                            inputLastName.setError(null);
                         }
 
                         if (messages.has("email")) {
                             final String email = messages.getJSONArray("email").get(0).toString();
                             stringBuilder.append("\n").append(email);
+                            inputEmail.setError(email);
+                            inputEmail.setError(email);
+                        } else {
+                            inputEmail.setError(null);
+                            inputEmail.setError(null);
                         }
 
                         if (messages.has("id_number")) {
                             final String idNumber = messages.getJSONArray("id_number").get(0).toString();
                             stringBuilder.append("\n").append(idNumber);
+                            inputIdNumber.setError(idNumber);
+                            inputIdNumber.setError(idNumber);
+                        } else {
+                            inputPassword.setError(null);
+                            inputPasswordConfirmation.setError(null);
                         }
 
                         if (messages.has("password")) {
                             final String password = messages.getJSONArray("password").get(0).toString();
                             stringBuilder.append("\n").append(password);
+                            if(password.contains("confirmation")) {
+                                inputPasswordConfirmation.setError(password);
+                            }else{
+                                inputPassword.setError(password);
+                            }
+                        } else {
+                            inputPassword.setError(null);
+                            inputPasswordConfirmation.setError(null);
                         }
-                        Toast.makeText(getApplicationContext(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getApplicationContext(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (final JSONException e) {
                     // JSON error

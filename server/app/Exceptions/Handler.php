@@ -44,7 +44,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+      // if ($exception instanceof HttpResponseException) {
+      //      return$exception->getResponse();
+      //  } elseif ($exception instanceof ModelNotFoundException) {
+      //      $exception =  new NotFoundHttpException($exception->getMessage(), $exception);
+      //  } elseif ($exception instanceof AuthenticationException) {
+      //      return $this->unauthenticated($request, $exception);
+      //  } elseif ($exception instanceof AuthorizationException) {
+      //      $exception =  new HttpException(403,$exception->getMessage());
+      //  } elseif ($exception instanceof ValidationException && $exception->getResponse()) {
+      //      return $exception->getResponse();
+      //  }
+      //
+      //  if ($this->isHttpException($exception)) {
+      //      return $this->toIlluminateResponse($this->renderHttpException($exception), $exception);
+      //  } else {
+      //      return $this->toIlluminateResponse($this->convertExceptionToResponse($exception), $exception);
+      //  }
+
+      return parent::render($request, $exception);
     }
 
     /**

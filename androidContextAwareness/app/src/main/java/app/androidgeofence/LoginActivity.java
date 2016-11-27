@@ -1,6 +1,7 @@
 package app.androidgeofence;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private Realm realm;
+
+    public LoginActivity() {
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -176,14 +181,20 @@ public class LoginActivity extends AppCompatActivity {
                         if (messages.has("id_number")) {
                             final String idNumber = messages.getJSONArray("id_number").get(0).toString();
                             stringBuilder.append("\n").append(idNumber);
+                            inputIdNumber.setError(idNumber);
+                        }else{
+                            inputIdNumber.setError(null);
                         }
 
                         if (messages.has("password")) {
                             final String password = messages.getJSONArray("password").get(0).toString();
                             stringBuilder.append("\n").append(password);
+                            inputPassword.setError(password);
+                        }else{
+                            inputPassword.setError(null);
                         }
 
-                        Toast.makeText(getApplicationContext(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getApplicationContext(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
                     }
                 } catch (final JSONException e) {
                     // JSON error
@@ -228,6 +239,26 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        final Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public static void logoutUser(final Context activity,
+                                  final SessionManager session) {
+        session.setLogin(false);
+        session.setLoggeInUserId(0);
+//        // delete all users
+//        //        realm.executeTransaction(new Realm.Transaction() {
+//        //            @Override
+//        //            public void execute(final Realm realm) {
+//        //                realm.delete(User.class);
+//        //            }
+//        //        });
+//        // Launching the login activity
+        final Intent intent = new Intent(activity, LoginActivity.class);
+        //activity.finish();
+        activity.startActivity(intent);
     }
 }

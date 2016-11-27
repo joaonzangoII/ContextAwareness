@@ -101,7 +101,7 @@ return [
     ],
   ],
 
-  'strength' => 'The password :attribute is too weak and must contain one or more uppercase, lowercase, numeric, and special character (!@#$%^&*).',
+  'strength' => 'The :attribute is too weak and must contain one or more uppercase, lowercase, numeric, and special character (!@#$%^&*).',
   'correct' => 'The id number :attribute should be 13 digits and have the format YYMMDDSSSSCAZ where YYMMDD: date of birth, SSSS: gender, C: Citizenship, A: Race, Z: Checksum..',
   'unique_other' => 'The :attribute has already been taken.',
   'date_of_birth' => 'Your :attribute should not be today and you should be 18 years and older',

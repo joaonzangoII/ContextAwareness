@@ -16,6 +16,7 @@
                   <th>Name</th>
                   <th>Latitude</th>
                   <th>Longitude</th>
+                  <th>Radius</th>
                   <th>Created At</th>
                   <th>Actions</th>
                 </tr>
@@ -27,6 +28,7 @@
                     <td>{{$safezone->name}}</td>
                     <td>{{$safezone->latitude}}</td>
                     <td>{{$safezone->longitude}}</td>
+                    <td>{{$safezone->radius}}</td>
                     <td>{{$safezone->created_at}}</td>
                     <td>
                       <a href="{{route('admin.safezones.show', $safezone->id)}}" class="btn btn-default">Show</a>

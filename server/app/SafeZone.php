@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Comment;
+use App\Timeline;
 
 class SafeZone extends Model
 {
@@ -29,5 +31,15 @@ class SafeZone extends Model
   public function getRouteKeyName()
   {
     return 'slug';
+  }
+
+  public function events()
+  {
+    return $this->hasMany(Timeline::class);
+  }
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
   }
 }

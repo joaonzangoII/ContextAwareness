@@ -334,3 +334,11 @@ Route::post('/event', function (Request $request) {
     'event' => $event
   ]);
 });
+
+// Route::get('*', function (Request $request) {
+//   return response()->json([
+//     'error' => true,
+//     'code' => '500',
+//     'messages' => ["not found"]
+//   ]);
+// });

@@ -70,7 +70,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         user = User.query(realm).byId((long)session.getLoggedInUserId());
         if (user == null) {
-            logoutUser();
+            final LoginActivity login = new LoginActivity();
+            login.logoutUser(EditProfileActivity.this, session);
         }
 
         inputFirstName.setText(user.getFirstname());
@@ -260,25 +261,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
-     */
-    private void logoutUser() {
-        session.setLogin(false);
-        // delete all users
-        //        realm.executeTransaction(new Realm.Transaction() {
-        //            @Override
-        //            public void execute(final Realm realm) {
-        //                realm.delete(User.class);
-        //            }
-        //        });
-        // Launching the login activity
-        final Intent intent = new Intent(EditProfileActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 }
 

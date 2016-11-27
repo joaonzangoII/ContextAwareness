@@ -63,6 +63,53 @@
         center: myLatLng,
         zoom: 12
       });
+      // map = new google.maps.Map(document.getElementById('map'), {
+      //   center: myLatLng,
+      //   zoom: 12,
+      //   styles: [{
+      //     "featureType": "water",
+      //     "stylers": [{"saturation": 43},
+      //       {"lightness": -11},
+      //       {"hue": "#0088ff"}]
+      //   },
+      //     {
+      //       "featureType": "road", "elementType": "geometry.fill", "stylers": [
+      //       {"hue": "#ff0000"},
+      //       {"saturation": -100},
+      //       {"lightness": 99}]
+      //     },
+      //     {
+      //       "featureType": "road", "elementType": "geometry.stroke",
+      //       "stylers": [{"color": "#808080"},
+      //         {"lightness": 54}]
+      //     },
+      //     {
+      //       "featureType": "landscape.man_made", "elementType": "geometry.fill",
+      //       "stylers": [{"color": "#ece2d9"}]
+      //     },
+      //     {
+      //       "featureType": "poi.park", "elementType": "geometry.fill",
+      //       "stylers": [{"color": "#ccdca1"}]
+      //     }, {
+      //       "featureType": "road",
+      //       "elementType": "labels.text.fill",
+      //       "stylers": [{"color": "#767676"}]
+      //     }, {
+      //       "featureType": "road",
+      //       "elementType": "labels.text.stroke",
+      //       "stylers": [{"color": "#ffffff"}]
+      //     }, {"featureType": "poi", "stylers": [{"visibility": "off"}]}, {
+      //       "featureType": "landscape.natural",
+      //       "elementType": "geometry.fill",
+      //       "stylers": [{"visibility": "on"}, {"color": "#b8cb93"}]
+      //     }, {"featureType": "poi.park", "stylers": [{"visibility": "on"}]}, {
+      //       "featureType": "poi.sports_complex",
+      //       "stylers": [{"visibility": "on"}]
+      //     }, {"featureType": "poi.medical", "stylers": [{"visibility": "on"}]}, {
+      //       "featureType": "poi.business",
+      //       "stylers": [{"visibility": "simplified"}]
+      //     }]
+      // });
 
       var marker = new google.maps.Marker({
         position: myLatLng,
@@ -79,18 +126,8 @@
 
     function initMap() {
       var map = initializeMap();
-      myLocation(map);
       drawGeofences(map);
-    }
-
-    function windowModal(marker) {
-      var infowindow = new google.maps.InfoWindow({
-        content: marker.title
-      });
-
-      marker.addListener('click', function () {
-        infowindow.open(marker.get('map'), marker);
-      });
+      myLocation(map);
     }
 
     function myLocation(map) {
@@ -102,53 +139,54 @@
 
             // Try HTML5 geolocation.
             if (navigator.geolocation) {
-              map = new google.maps.Map(document.getElementById('map'), {
-                center: myLatLng,
-                zoom: 12,
-                styles: [{
-                  "featureType": "water",
-                  "stylers": [{"saturation": 43},
-                    {"lightness": -11},
-                    {"hue": "#0088ff"}]
-                },
-                  {
-                    "featureType": "road", "elementType": "geometry.fill", "stylers": [
-                    {"hue": "#ff0000"},
-                    {"saturation": -100},
-                    {"lightness": 99}]
-                  },
-                  {
-                    "featureType": "road", "elementType": "geometry.stroke",
-                    "stylers": [{"color": "#808080"},
-                      {"lightness": 54}]
-                  },
-                  {
-                    "featureType": "landscape.man_made", "elementType": "geometry.fill",
-                    "stylers": [{"color": "#ece2d9"}]
-                  },
-                  {
-                    "featureType": "poi.park", "elementType": "geometry.fill",
-                    "stylers": [{"color": "#ccdca1"}]
-                  }, {
-                    "featureType": "road",
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"color": "#767676"}]
-                  }, {
-                    "featureType": "road",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [{"color": "#ffffff"}]
-                  }, {"featureType": "poi", "stylers": [{"visibility": "off"}]}, {
-                    "featureType": "landscape.natural",
-                    "elementType": "geometry.fill",
-                    "stylers": [{"visibility": "on"}, {"color": "#b8cb93"}]
-                  }, {"featureType": "poi.park", "stylers": [{"visibility": "on"}]}, {
-                    "featureType": "poi.sports_complex",
-                    "stylers": [{"visibility": "on"}]
-                  }, {"featureType": "poi.medical", "stylers": [{"visibility": "on"}]}, {
-                    "featureType": "poi.business",
-                    "stylers": [{"visibility": "simplified"}]
-                  }]
-              });
+              map.setCenter(myLatLng);
+              // map = new google.maps.Map(document.getElementById('map'), {
+              //   center: myLatLng,
+              //   zoom: 12,
+              //   styles: [{
+              //     "featureType": "water",
+              //     "stylers": [{"saturation": 43},
+              //       {"lightness": -11},
+              //       {"hue": "#0088ff"}]
+              //   },
+              //     {
+              //       "featureType": "road", "elementType": "geometry.fill", "stylers": [
+              //       {"hue": "#ff0000"},
+              //       {"saturation": -100},
+              //       {"lightness": 99}]
+              //     },
+              //     {
+              //       "featureType": "road", "elementType": "geometry.stroke",
+              //       "stylers": [{"color": "#808080"},
+              //         {"lightness": 54}]
+              //     },
+              //     {
+              //       "featureType": "landscape.man_made", "elementType": "geometry.fill",
+              //       "stylers": [{"color": "#ece2d9"}]
+              //     },
+              //     {
+              //       "featureType": "poi.park", "elementType": "geometry.fill",
+              //       "stylers": [{"color": "#ccdca1"}]
+              //     }, {
+              //       "featureType": "road",
+              //       "elementType": "labels.text.fill",
+              //       "stylers": [{"color": "#767676"}]
+              //     }, {
+              //       "featureType": "road",
+              //       "elementType": "labels.text.stroke",
+              //       "stylers": [{"color": "#ffffff"}]
+              //     }, {"featureType": "poi", "stylers": [{"visibility": "off"}]}, {
+              //       "featureType": "landscape.natural",
+              //       "elementType": "geometry.fill",
+              //       "stylers": [{"visibility": "on"}, {"color": "#b8cb93"}]
+              //     }, {"featureType": "poi.park", "stylers": [{"visibility": "on"}]}, {
+              //       "featureType": "poi.sports_complex",
+              //       "stylers": [{"visibility": "on"}]
+              //     }, {"featureType": "poi.medical", "stylers": [{"visibility": "on"}]}, {
+              //       "featureType": "poi.business",
+              //       "stylers": [{"visibility": "simplified"}]
+              //     }]
+              // });
 
               var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
                   position.coords.latitude + '%2C' +
@@ -170,7 +208,7 @@
               handleLocationError(false, infoWindow, map.getCenter()); // Browser doesn't support Geolocation
             }
           }, function () {
-             //handleLocationError(true, infoWindow, map.getCenter());
+             handleLocationError(true, infoWindow, map.getCenter());
           }
       )
     }
@@ -180,6 +218,16 @@
       infoWindow.setContent(browserHasGeolocation ?
           'Error: The Geolocation service failed.' :
           'Error: Your browser doesn\'t support geolocation.');
+    }
+
+    function windowModal(marker) {
+      var infowindow = new google.maps.InfoWindow({
+        content: marker.title
+      });
+
+      marker.addListener('click', function () {
+        infowindow.open(marker.get('map'), marker);
+      });
     }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk_BZkzSg0UMXtT_R-ijdp8sX8aiu22NY&callback=initMap"

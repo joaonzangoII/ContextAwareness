@@ -49,17 +49,18 @@ public class CommentsActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         final long user_id = getIntent().getLongExtra("user_id", 1);
-        final User user = User.query(realm).byId(user_id);
-        if (user == null) {
-            logoutUser();
-        }
-
-        // Progress dialog
+              // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
         // session manager
         session = new SessionManager(getApplicationContext());
+
+        final User user = User.query(realm).byId(user_id);
+        if (user == null) {
+            final LoginActivity login = new LoginActivity();
+            login.logoutUser(CommentsActivity.this, session);
+        }
 
         fetchCommentsAsync(String.valueOf(user.getId()));
         // usersList = User.query(realm).all().findAll();
@@ -169,21 +170,5 @@ public class CommentsActivity extends AppCompatActivity {
                 safezone = (TextView) itemView.findViewById(R.id.safezone);
             }
         }
-    }
-
-    private void logoutUser() {
-        session.setLogin(false);
-        session.setLoggeInUserId(0);
-        // delete all users
-        //        realm.executeTransaction(new Realm.Transaction() {
-        //            @Override
-        //            public void execute(final Realm realm) {
-        //                realm.delete(User.class);
-        //            }
-        //        });
-        // Launching the login activity
-        final Intent intent = new Intent(CommentsActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

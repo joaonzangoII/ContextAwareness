@@ -1,7 +1,6 @@
 package app.androidgeofence;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,10 +28,13 @@ public class ViewUserActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         realm = Realm.getDefaultInstance();
+        // session manager
+        session = new SessionManager(getApplicationContext());
         final long user_id = getIntent().getLongExtra("user_id", 1);
         final User user = User.query(realm).byId(user_id);
         if (user == null) {
-            logoutUser();
+            final LoginActivity login = new LoginActivity();
+            login.logoutUser(ViewUserActivity.this, session);
         }
 
         if (getSupportActionBar() != null) {
@@ -44,8 +46,6 @@ public class ViewUserActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        // session manager
-        session = new SessionManager(getApplicationContext());
         final ImageView ImageView = (ImageView) findViewById(R.id.image);
         Glide.with(ViewUserActivity.this).load(user.getPicture_url(session))
                 .thumbnail(0.5f)
@@ -61,24 +61,5 @@ public class ViewUserActivity extends AppCompatActivity {
         idNumber.setText(Html.fromHtml(String.format("<b>Id Number:</b> %s", user.getIdNumber())));
         dateOfBirth.setText(Html.fromHtml(String.format("<b>Date of birth:</b> %s", user.getDateOfBirth())));
         gender.setText(Html.fromHtml(String.format("<b>Gender:</b> %s", user.getGender())));
-    }
-
-    /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
-     */
-    private void logoutUser() {
-        session.setLogin(false);
-        // delete all users
-        //        realm.executeTransaction(new Realm.Transaction() {
-        //            @Override
-        //            public void execute(final Realm realm) {
-        //                realm.delete(User.class);
-        //            }
-        //        });
-        // Launching the login activity
-        final Intent intent = new Intent(ViewUserActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

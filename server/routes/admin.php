@@ -33,4 +33,4 @@ Route::post('/comments/create', 'Admin\CommentsController@store')->name('comment
 Route::get('/comments/show/{comment}', 'Admin\CommentsController@show')->name('comments.show');
 Route::get('/comments/edit/{comment}', 'Admin\CommentsController@edit')->name('comments.edit');
 Route::post('/comments/edit/{comment}', 'Admin\CommentsController@update')->name('comments.update');
-Route::post('/safe-zones/delete/{comment}', 'Admin\CommentsController@delete')->name('comments.delete');
+Route::post('/comments/delete/{comment}', 'Admin\CommentsController@delete')->name('comments.delete');

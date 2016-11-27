@@ -51,6 +51,19 @@ public class ProfileActivity extends AppCompatActivity
     private static final String TAG = ProfileActivity.class.getSimpleName();
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        session = new SessionManager(getApplicationContext());
+        // Check if user is already logged in or not
+        if (!session.isLoggedIn()) {
+            // User is already logged in. Take him to map activity
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -65,7 +78,8 @@ public class ProfileActivity extends AppCompatActivity
         session = new SessionManager(getApplicationContext());
         user = User.query(realm).byId((long)session.getLoggedInUserId());
         if (user.equals(null)) {
-            logoutUser();
+            final LoginActivity login = new LoginActivity();
+            login.logoutUser(ProfileActivity.this, session);
         }
 
         actionsUser = (LinearLayout) findViewById(R.id.actions_user);
@@ -374,26 +388,12 @@ public class ProfileActivity extends AppCompatActivity
                 return true;
             }
             case R.id.action_logout: {
-                logoutUser();
+                final LoginActivity login = new LoginActivity();
+                login.logoutUser(ProfileActivity.this, session);
                 return true;
             }
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void logoutUser() {
-        session.setLogin(false);
-        // delete all users
-        //        realm.executeTransaction(new Realm.Transaction() {
-        //            @Override
-        //            public void execute(final Realm realm) {
-        //                realm.delete(User.class);
-        //            }
-        //        });
-        // Launching the login activity
-        final Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

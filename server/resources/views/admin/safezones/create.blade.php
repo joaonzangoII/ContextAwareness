@@ -69,8 +69,12 @@
                 @endif
               </div>
             </div>
-            {!! Form::submit('Submit', ['class'=>'btn btn default']) !!}
-            <a class="btn btn-danger" href="{{URL::previous()}}">Back</a>
+            <div class="form-group">
+              <div class="col-md-66">
+                {!! Form::submit('Submit', ['class'=>'btn btn default']) !!}
+                <a class="btn btn-danger" href="{{URL::previous()}}">Back</a>
+              </div>
+            </div>
             {!! Form::close() !!}
           </div>
         </div>

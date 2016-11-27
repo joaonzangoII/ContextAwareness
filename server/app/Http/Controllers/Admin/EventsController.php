@@ -12,11 +12,18 @@ class EventsController extends Controller
 {
   public function index()
   {
+    dd(Timeline::all());
     $title = 'All Events';
     if (Auth::user()->isAdmin()) {
-      $events = Timeline::with('user', 'safe_zone')->latest()->paginate(10);
+      $events = Timeline::whereHas('safe_zone')
+      ->whereHas('user')
+      ->latest()
+      ->paginate(10);
     } else {
-      $events = Timeline::with('user', 'safe_zone')->where('user_id', Auth::user()->id)->latest()->paginate(10);
+      $events = Timeline::with('user', 'safe_zone')
+      ->where('user_id', Auth::user()->id)
+      ->latest()
+      ->paginate(10);
     }
 
     return view('admin.events.index', compact('title', 'events'));

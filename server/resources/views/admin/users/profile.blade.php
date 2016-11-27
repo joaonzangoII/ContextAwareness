@@ -99,6 +99,22 @@
       background-color: #eaeaea;
       padding: 15px;
     }
+
+    .card .avatar {
+      width: 100%;
+      height: 400px;
+      border-radius: 0%;
+    }
+
+    .card-user .avatar {
+      margin-bottom: 0px;
+    }
+
+    .caption{
+      z-index: 1000;
+      top: -200px;
+      /*background-color: #D3D3D3;*/
+    }
   </style>
 @endsection
 @section("content")
@@ -107,37 +123,35 @@
       <div class="row">
         <div class="col-md-4">
           <div class="card card-user">
-            <div class="image">
-              <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
-                   alt="..."/>
-            </div>
-            <div class="content">
-              <div class="author">
-                <a href="#">
-                  <img id="profile-image" class="avatar border-gray"
-                       src="{{asset($user->picture_url)}}"
-                       alt="..."/>
-
-                  <div id="profile-image-caption" style="display:none" class="desc">
-                    <p class="desc_content">Click on image to Update profile picture</p>
+            <div class="ccontent">
+              <div class="aauthor">
+                <div class = "thumbnail">
+                  <a href="#">
+                    <img id="profile-image"
+                         class="avatar border-gray"
+                         src="{{asset($user->picture_url)}}"
+                         alt="..."/>
+                  </a>
+                  <div class="caption">
+                    <div id="profile-image-caption"
+                         style="display:none"
+                         class="desc">
+                      <p class="desc_content">
+                        Click on image to Update profile picture
+                      </p>
+                    </div>
+                    <h4 class="title">
+                       <b>Name:</b> {{ucwords($user->full_name)}}
+                     </h4>
+                     <p class="description text-center"><h4><b>ID Number:</b> {{$user->id_number}}</h5></p>
+                     <p class="description text-center"><h4><b>Date of Birth:</b> {{$user->date_of_birth}}</h5></p>
+                     <p class="description text-center"><h4><b>Gender:</b> {{Str::ucFirst($user->gender)}}</h5></p>
                   </div>
-
-                  <h4 class="title">{{ucwords($user->full_name)}}<br/>
-                    <small>{{$user->slug}}</small>
-                  </h4>
-                </a>
+                </div>
               </div>
-              <p class="description text-center">{{$user->about_me}}</p>
-              <p class="description text-center">{{$user->date_of_birth}}</p>
-              <p class="description text-center">{{Str::ucFirst($user->gender)}}</p>
             </div>
             <hr>
-            <div class="text-center">
-              <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-              <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-              <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
 
-            </div>
           </div>
         </div>
 
@@ -148,76 +162,91 @@
             </div>
             <div class="content">
               {!! Form::model($user, ['url'=> route('admin.users.profile.update'),'method'=>'POST']) !!}
-              <div class="col-md-666">
-                <div class="form-group {{ $errors->has('firstname') ? ' has-error' : '' }}">
-                  <label class="col-md-44 control-label">First name</label>
+                <div class="col-md-666">
+                  <div class="form-group {{ $errors->has('firstname') ? ' has-error' : '' }}">
+                    <label class="col-md-44 control-label">First name</label>
+                    <div class="col-md-66">
+                      <input type="text" class="form-control" name="firstname" value="{{$user->firstname}}">
+                      @if ($errors->has('firstname'))
+                        <span class="help-block">
+                    <strong>{{ $errors->first('firstname') }}</strong>
+                    </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="form-group {{ $errors->has('middlename') ? ' has-error' : '' }}">
+                    <label class="col-md-44 control-label">Middle name (optional) </label>
+                    <div class="col-md-66">
+                      <input type="text" class="form-control" name="middlename" value="{{$user->middlename}}">
+                      @if ($errors->has('middlename'))
+                        <span class="help-block">
+                    <strong>{{ $errors->first('middlename') }}</strong>
+                    </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="form-group {{ $errors->has('lastname') ? ' has-error' : '' }}">
+                    <label class="col-md-44 control-label">Last name</label>
+                    <div class="col-md-66">
+                      <input type="text" class="form-control" name="lastname" value="{{$user->lastname}}">
+                      @if ($errors->has('lastname'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('lastname') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                    <label class="col-md-44 control-label">E-Mail Address</label>
+                    <div class="col-md-66">
+                      <input type="email" class="form-control" name="email" value="{{$user->email}}">
+                      @if ($errors->has('email'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="form-group {{ $errors->has('id_number') ? ' has-error' : '' }}">
+                    <label class="col-md-44 control-label">ID Number</label>
+                    <div class="col-md-66">
+                      <input type="text" class="form-control" name="id_number" value="{{$user->id_number}}" disabled>
+                      @if ($errors->has('id_number'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('id_number') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                  {{-- <div class="form-group {{ $errors->has('about_me') ? ' has-error' : '' }}">
+                    <label class="col-md-44 control-label">About Me</label>
+                    <div class="col-md-66">
+                      <textarea type="text" class="form-control" name="about_me" value="{{$user->about_me}}"></textarea>
+                      @if ($errors->has('about_me'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('about_me') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div> --}}
+                  {{--<div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">--}}
+                  {{--<label class="col-md-44 control-label">Password</label>--}}
+                  {{--<div class="col-md-66">--}}
+                  {{--<input type="password" class="form-control" name="password">--}}
+                  {{--@if ($errors->has('password'))--}}
+                  {{--<span class="help-block">--}}
+                  {{--<strong>{{ $errors->first('password') }}</strong>--}}
+                  {{--</span>--}}
+                  {{--@endif--}}
+                  {{--</div>--}}
+                  {{--</div>--}}
+                </div>
+                <div class="form-group">
                   <div class="col-md-66">
-                    <input type="text" class="form-control" name="firstname" value="{{$user->firstname}}">
-                    @if ($errors->has('firstname'))
-                      <span class="help-block">
-                  <strong>{{ $errors->first('firstname') }}</strong>
-                  </span>
-                    @endif
+                    {!! Form::submit('Submit', ['class'=>'btn btn default']) !!}
+                    <a class="btn btn-danger" href="{{URL::previous()}}">Back</a>
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('middlename') ? ' has-error' : '' }}">
-                  <label class="col-md-44 control-label">Middle name (optional) </label>
-                  <div class="col-md-66">
-                    <input type="text" class="form-control" name="middlename" value="{{$user->middlename}}">
-                    @if ($errors->has('middlename'))
-                      <span class="help-block">
-                  <strong>{{ $errors->first('middlename') }}</strong>
-                  </span>
-                    @endif
-                  </div>
-                </div>
-                <div class="form-group {{ $errors->has('lastname') ? ' has-error' : '' }}">
-                  <label class="col-md-44 control-label">Last name</label>
-                  <div class="col-md-66">
-                    <input type="text" class="form-control" name="lastname" value="{{$user->lastname}}">
-                    @if ($errors->has('lastname'))
-                      <span class="help-block">
-                        <strong>{{ $errors->first('lastname') }}</strong>
-                      </span>
-                    @endif
-                  </div>
-                </div>
-                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                  <label class="col-md-44 control-label">E-Mail Address</label>
-                  <div class="col-md-66">
-                    <input type="email" class="form-control" name="email" value="{{$user->email}}">
-                    @if ($errors->has('email'))
-                      <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                      </span>
-                    @endif
-                  </div>
-                </div>
-                <div class="form-group {{ $errors->has('id_number') ? ' has-error' : '' }}">
-                  <label class="col-md-44 control-label">ID Number</label>
-                  <div class="col-md-66">
-                    <input type="text" class="form-control" name="id_number" value="{{$user->id_number}}">
-                    @if ($errors->has('id_number'))
-                      <span class="help-block">
-                        <strong>{{ $errors->first('id_number') }}</strong>
-                      </span>
-                    @endif
-                  </div>
-                </div>
-                {{--<div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">--}}
-                {{--<label class="col-md-44 control-label">Password</label>--}}
-                {{--<div class="col-md-66">--}}
-                {{--<input type="password" class="form-control" name="password">--}}
-                {{--@if ($errors->has('password'))--}}
-                {{--<span class="help-block">--}}
-                {{--<strong>{{ $errors->first('password') }}</strong>--}}
-                {{--</span>--}}
-                {{--@endif--}}
-                {{--</div>--}}
-                {{--</div>--}}
-              </div>
-              {!! Form::submit('Submit', ['class'=>'btn btn default']) !!}
-              <a class="btn btn-danger" href="{{URL::previous()}}">Back</a>
               {!! Form::close() !!}
             </div>
           </div>

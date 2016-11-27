@@ -110,15 +110,37 @@ public class MapActivity extends AppCompatActivity implements
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        session = new SessionManager(getApplicationContext());
+        // Check if user is already logged in or not
+        if (!session.isLoggedIn()) {
+            // User is already logged in. Take him to map activity
+            Intent intent = new Intent(MapActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         realm = Realm.getDefaultInstance();
         // session manager
         session = new SessionManager(getApplicationContext());
+        // Check if user is already logged in or not
+        if (!session.isLoggedIn()) {
+            // User is already logged in. Take him to map activity
+            Intent intent = new Intent(MapActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         user = User.query(realm).byId((long) session.getLoggedInUserId());
         if (user == null) {
-            logoutUser();
+            final LoginActivity login = new LoginActivity();
+            login.logoutUser(MapActivity.this, session);
         }
 
         // Progress dialog
@@ -133,7 +155,8 @@ public class MapActivity extends AppCompatActivity implements
         safeZonesList.addChangeListener(this);
 
         if (!session.isLoggedIn()) {
-            logoutUser();
+            final LoginActivity login = new LoginActivity();
+            login.logoutUser(MapActivity.this, session);
         }
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -294,7 +317,7 @@ public class MapActivity extends AppCompatActivity implements
         writeActualLocation(location);
         startGeofence();
         isInGeofence = false;
-        if(safeZonesList.size() >0) {
+        if (safeZonesList.size() > 0) {
             SafeZone geoIn = safeZonesList.get(0);
             for (final SafeZone safeZone : safeZonesList) {
                 final Location geofenceLoc = new Location("");
@@ -518,12 +541,6 @@ public class MapActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.map, menu);
@@ -551,7 +568,8 @@ public class MapActivity extends AppCompatActivity implements
                 return true;
             }
             case R.id.action_logout: {
-                logoutUser();
+                final LoginActivity login = new LoginActivity();
+                login.logoutUser(MapActivity.this, session);
                 return true;
             }
         }
@@ -638,25 +656,6 @@ public class MapActivity extends AppCompatActivity implements
                     markerForGeofence(geo.getLatLng());
                 }
         }
-    }
-
-    /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
-     */
-    private void logoutUser() {
-        session.setLogin(false);
-        // delete all users
-        //        realm.executeTransaction(new Realm.Transaction() {
-        //            @Override
-        //            public void execute(final Realm realm) {
-        //                realm.delete(User.class);
-        //            }
-        //        });
-        // Launching the login activity
-        final Intent intent = new Intent(MapActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     /**
@@ -772,5 +771,14 @@ public class MapActivity extends AppCompatActivity implements
         } else {
             pDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        final Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

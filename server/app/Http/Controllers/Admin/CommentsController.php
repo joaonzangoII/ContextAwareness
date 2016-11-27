@@ -15,9 +15,16 @@ class CommentsController extends AdminController
   {
     $title = 'All Comments';
     if (Auth::user()->isAdmin()==true) {
-      $comments = Comment::with('user', 'safe_zone')->latest()->paginate(10);
+      $comments = Comment::with('user', 'safe_zone')
+      ->whereHas('safe_zone')
+      ->whereHas('user')
+      ->latest()
+      ->paginate(10);
     } else {
-      $comments = Comment::with('user', 'safe_zone')->where('user_id', Auth::user()->id)->latest()->paginate(10);
+      $comments = Comment::with('user', 'safe_zone')
+      ->where('user_id', Auth::user()->id)
+      ->latest()
+      ->paginate(10);
     }
 
     return view('admin.comments.index', compact('title', 'comments'));

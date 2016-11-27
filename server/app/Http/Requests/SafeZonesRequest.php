@@ -27,7 +27,7 @@ class SafeZonesRequest extends FormRequest
       'name' => 'required',
       'latitude' => 'required|numeric|between:-90.00000,90.00000',
       'longitude' => 'required|numeric|between:-90.00000,90.00000',
-      'radius' => 'required|positive',
+      'radius' => 'required|numeric|positive',
     ];
   }
 }
