@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "app.androidgeofence"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable = true
+            // Disable Fabric build ID generation for debug builds
+            // See https://docs.fabric.io/android/crashlytics/build-tools.html#disabling-crashlytics-for-debug-builds
+            ext.enableCrashlytics = false
+        }
+    }
+
+    splits {
+        // Split APKs on build target ABI.
+        // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
+        abi {
+            /*
+            enable true
+            reset()
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86', 'x86_64'
+            */
+            universalApk true
+        }
+    }
+
+    dexOptions {
+        incremental = true
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
+
+    productFlavors {}
+
+    packagingOptions {
+        // Exclude file to avoid
+        // Error: Duplicate files during packaging of APK
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        //Check latest docs @realm site
+        exclude 'lib/arm64-v8a/librealm-jni.so'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+    compile 'com.google.android.gms:play-services:10.0.0'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile "com.android.support:cardview-v7:${supportLibVersion}"
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+}
+
+apply plugin: 'com.google.gms.google-services'

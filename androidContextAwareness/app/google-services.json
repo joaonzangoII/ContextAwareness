@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "17481515346",
+    "project_id": "contextawareness-150410"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17481515346:android:3d55ba3901120801",
+        "android_client_info": {
+          "package_name": "app.androidgeofence"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ1-sQFBNJjzz9Bl6BZqaBVxWhKqKL1Fk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

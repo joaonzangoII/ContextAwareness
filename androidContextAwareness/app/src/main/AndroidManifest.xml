@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.androidgeofence">
+
+    <!--
+     We need to set the correct permissions to create and use geofences.
+     Add the following permission to the project's manifest:
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Since we are using a MapFragment, we need to set up and initialize a GoogleMap instance. -->
+        <!-- First, you need to obtain an API key. Once you have an API key, add it to the project's manifest. -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".AddSafeZoneActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ViewAllSafeZonesActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.androidgeofence.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".ViewAllUsersActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.androidgeofence.ProfileActivity" />
+        </activity>
+        <activity
+            android:name=".ViewUserActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ViewAllUsersActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.androidgeofence.ViewAllUsersActivity" />
+        </activity>
+        <activity
+            android:name=".CommentsActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ViewAllUsersActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.androidgeofence.ViewAllUsersActivity" />
+        </activity>
+    </application>
+
+</manifest>
