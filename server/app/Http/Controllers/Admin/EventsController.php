@@ -12,7 +12,6 @@ class EventsController extends Controller
 {
   public function index()
   {
-    dd(Timeline::all());
     $title = 'All Events';
     if (Auth::user()->isAdmin()) {
       $events = Timeline::whereHas('safe_zone')
