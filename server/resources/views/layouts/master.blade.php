@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Context Awareness</title>
+  <title>@yield('title') Context Awareness</title>
   <link href="{{asset('css/vendor.css')}}" rel="stylesheet" media="screen">
   <script src="{{asset('js/vendor.js')}}" type="text/javascript"></script>
   {{--<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>--}}

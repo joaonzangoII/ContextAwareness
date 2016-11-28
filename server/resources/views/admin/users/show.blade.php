@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section('content')
   <div class="content">
     <div class="container-fluid">

@@ -53,6 +53,8 @@ class SafeZonesController extends AdminController
 
   public function delete(Request $request, $safezone)
   {
+    $safeZone->events()->delete();
+    $safeZone->comments()->delete();
     $safezone->delete();
     Session::flash('message', 'You have successfully deleted a  safe zone');
     Session::flash('alert-class', 'alert-danger');

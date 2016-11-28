@@ -58,6 +58,8 @@ class UsersController extends Controller
 
   public function delete(Request $request, $user)
   {
+    $user->events()->delete();
+    $user->comments()->delete();
     $user->delete();
     Session::flash('message', 'You have successfully deleted a  user');
     Session::flash('alert-class', 'alert-danger');

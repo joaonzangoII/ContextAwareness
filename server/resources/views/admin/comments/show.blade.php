@@ -10,9 +10,10 @@
             </div>
             <div class="content">
               <h1>{{$comment->title}}</h1>
-              @if(not_null($comment->user) && not_null($comment->safe_zone))
-                <h1>{{$comment->user->full_name}}</h1>
-                <h1>{{$comment->safe_zone->name}}</h1>
+              <h1><b>Created At: </b>{{$comment->created_at}}</h1>
+              @if(not_null($comment->user) && not_null($comment->safeZone))
+                <h1><b>User: </b>{{$comment->user->full_name}}</h1>
+                <h1><b>Place:</b> {{$comment->safeZone->name}}</h1>
               @endif
               <a class="btn btn-danger" href="{{URL::previous()}}">Back</a>
             </div>

@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section('content')
   <div class="content">
     <div class="container-fluid">
@@ -6,7 +9,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="header">
-              <h4 class="title">All Users</h4>
+              <h4 class="title">{{$title}}</h4>
               {{--<p class="category">Here is a subtitle for this table</p>--}}
             </div>
             <div class="content table-responsive table-full-width">

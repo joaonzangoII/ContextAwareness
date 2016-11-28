@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
     });
 
     $router->bind('event', function ($slug) {
-      return Timeline::findOrFail($slug);
+      return Timeline::with('user')->findOrFail($slug);
     });
   }
 

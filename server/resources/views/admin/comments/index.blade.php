@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section('content')
   <div class="content">
     <div class="container-fluid">
@@ -24,11 +27,11 @@
 
                   <tbody>
                     @foreach($comments as $comment)
-                      @if(not_null($comment->user) && not_null($comment->safe_zone))
+                      @if(not_null($comment->user) && not_null($comment->safeZone))
                         <tr>
                           <td>{{$comment->title}}</td>
                           <td>{{$comment->user->full_name}}</td>
-                          <td>{{$comment->safe_zone->name}}</td>
+                          <td>{{$comment->safeZone->name}}</td>
                           <td>{{$comment->created_at}}</td>
                           <td>
                             <a href="{{route('admin.comments.show', $comment->id)}}" class="btn btn-default">Show</a>

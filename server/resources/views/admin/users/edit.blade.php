@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section('assets')
   <style type="text/css">
     .sns-signin {
@@ -101,6 +104,7 @@
     }
   </style>
 @endsection
+
 @section("content")
   <div class="content">
     <div class="container-fluid">

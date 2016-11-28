@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section('content')
   <div class="content">
     <div class="container-fluid">
@@ -24,11 +27,11 @@
 
                   <tbody>
                     @foreach($events as $event)
-                      @if(not_null($event->user) && not_null($event->safe_zone))
+                      @if(not_null($event->user) && not_null($event->safeZone))
                         <tr>
                           <td>{{$event->title}}</td>
                           <td>{{$event->user->full_name}}</td>
-                          <td>{{$event->safe_zone->name}}</td>
+                          <td>{{$event->safeZone->name}}</td>
                           <td>{{$event->created_at}}</td>
                           <td>
                             <a href="{{route('admin.events.show', $event->id)}}" class="btn btn-default">Show</a>

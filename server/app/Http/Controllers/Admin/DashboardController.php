@@ -11,8 +11,20 @@ class DashboardController
 {
   public function home()
   {
-    $title = 'Dashboard';
+
     $user = Auth::user();
+    if(!$user->isAdmin()){
+      $title = 'User {{$user->full_name}}';
+      $events = Timeline::where('user_id', $user->id)->latest()->get();
+      $comments = Comment::where('user_id', $user->id)->latest()->get();
+      return view('admin.user',
+             compact('title',
+                     'user',
+                     'events',
+                     'comments'));
+    }
+
+    $title = 'Dashboard';
     $users = User::latest();
     $safeZones = SafeZone::latest()->get();
     $events = Timeline::latest()->get();
@@ -28,5 +40,6 @@ class DashboardController
                    'comments',
                    'safeZonesByEvent',
                    'safeZonesByComment'));
+
   }
 }

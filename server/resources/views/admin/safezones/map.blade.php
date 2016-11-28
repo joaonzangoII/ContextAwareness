@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section("assets")
   <style>
     /* Always set the map height explicitly to define the size of the div

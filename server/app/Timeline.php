@@ -32,7 +32,7 @@ class Timeline extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function safe_zone()
+  public function safeZone()
   {
     return $this->belongsTo(SafeZone::class);
   }

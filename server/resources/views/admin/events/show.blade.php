@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+  {{$title}} |
+@endsection
 @section('content')
   <div class="content">
     <div class="container-fluid">
@@ -10,9 +13,10 @@
             </div>
             <div class="content">
               <h1><b>Title: </b>{{$event->title}}</h1>
-              @if(not_null($event->user) && not_null($event->safe_zone))
+              <h1><b>Created At: </b>{{$event->created_at}}</h1>
+              @if(not_null($event->user) && not_null($event->safeZone))
                 <h1><b>User: </b>{{$event->user->full_name}}</h1>
-                <h1><b>Safe Zone: </b>{{$event->safe_zone->name}}</h1>
+                <h1><b>Place: </b>{{$event->safeZone->name}}</h1>
               @endif
 
               <a class="btn btn-danger" href="{{URL::previous()}}">Back</a>

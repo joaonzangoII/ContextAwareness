@@ -14,12 +14,12 @@ class EventsController extends Controller
   {
     $title = 'All Events';
     if (Auth::user()->isAdmin()) {
-      $events = Timeline::whereHas('safe_zone')
+      $events = Timeline::whereHas('safeZone')
       ->whereHas('user')
       ->latest()
       ->paginate(10);
     } else {
-      $events = Timeline::with('user', 'safe_zone')
+      $events = Timeline::with('user', 'safeZone')
       ->where('user_id', Auth::user()->id)
       ->latest()
       ->paginate(10);
